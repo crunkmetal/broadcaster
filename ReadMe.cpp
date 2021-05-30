@@ -20,25 +20,3 @@ void ReadMe::info()
 
 	pause.pause_1s();
 }
-
-/*
-https://youtu.be/V-BFlMrBtqQ
-
-
- alternate pausing solution
- #include <Windows.h>
- 	Sleep(1000);
-
-to delete a file
-	#include <stdio.h>
-	
-	int main()
-	{
-		// first make sure the file exists
-	    if(remove("nameoffile.txt") !=0)
-	      perror("This file does not exist");	<-- this text is added to C++ default text
-	    else
-	    puts("File has been deleted.");
-	  return 0;
-	 }
- */
