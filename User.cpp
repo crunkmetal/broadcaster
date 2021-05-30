@@ -11,13 +11,11 @@ string User::getUserName()
 
 void User::setUserName()
 {
+	cin.ignore();
 	string userID;
-
 	cout << "\n  Enter username:\t";
 	getline(cin, userID);
 	m_userName = userID;
-	userID = "";
-
 }
 
 string User::getUserInput()
