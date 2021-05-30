@@ -1,11 +1,10 @@
 /*
-	
-
-
-
-  */
-
-
+	Bryan Jeremy
+	CSC275 C++ Programming II
+	Assignment: File I/O (Input and Output)
+	30MAY21
+ */
+// preprocessor directives
 #include <iostream>
 #include "Pausing.h"
 #include "ReadMe.h"
@@ -15,7 +14,7 @@
 #include <sstream>
 #include "Encryption.h"
 #include "Filesave.h"
-
+// using standard template library
 using namespace std;
 
 // instantiating objects
@@ -24,35 +23,30 @@ ReadMe intro;
 User player;
 Encryption crypt;
 Filesave savedata;
-
-bool quitApp();
-
+		
+bool quitApp();	// function prototype
+// one and only main function 
 int main()
 {
 	srand(static_cast<unsigned>(time(nullptr))); // seed random number generator
-	// invoking a function to open, parse and then change data in a new file
-	intro.info();	// about screen
-	
-	// game loop
+	intro.info();	// invoke function to display program info
+	// game loop using a do/while loop
 	do
 	{
-		savedata.loadFile();
-
-
-		system("CLS");
+		savedata.loadFile();	// invoke function for user options
+		system("CLS");	// after leaving previous function, clear console of content
 		
 		cout << "\n\t\tSCRAMBLER\n\n";
-		// asking for user inputs
-		player.setUserName();
-		player.setUserId();
-		player.setUserInput();
-		pauseNow.pause_10m();
-		system("CLS");
+		player.setUserName();	// invoke function to get user name
+		player.setUserId();	// invoke function to create a user ID
+		player.setUserInput();	// invoke function to get a user message
+		pauseNow.pause_10m();	// invoke function to pause
+		system("CLS");	// after leaving previous function, clear console of content
 	
 	
-		// set restart switch to no replay
-		crypt.restart = false;
-		// get user info
+		
+		crypt.restart = false;	// set restart switch to false (no replay)
+		// get user info using member functions instead of variables
 		cout << "\n\t\tSCRAMBLER\n\n";
 		cout << "  User ID:\t" << player.getUserId() << "\n";
 		cout << "  User Name:\t" << player.getUserName() << "\n";
@@ -60,7 +54,7 @@ int main()
 		pauseNow.pause_1s();
 		pauseNow.pause_1s();
 
-		// setting values from private members to local variables
+		// setting values from private members to local variables 
 		string name = player.getUserName();
 		string userInput = player.getUserInput();
 		int userID = player.getUserId();
@@ -78,17 +72,18 @@ int main()
 
 		cout << "\n\t\tSCRAMBLER\n\n";
 		cout << "  " << name << ", would you like to broadcast your message? ( Y or N )\n";
-		broadcastMsg = crypt.broadcastMsg(crypt.isEncrypted, userInput, msgEncrypted, broadcastMsg);	// invoke call to broadcast msg
+		// return value of invoked function assigned to local variable
+		broadcastMsg = crypt.broadcastMsg(crypt.isEncrypted, userInput, msgEncrypted, broadcastMsg);
 		pauseNow.pause_1s();
 		system("CLS");
 
 		cout << "\n\t\tSCRAMBLER\n\n";
 		cout << "  " << name << ", would you like to save your message? ( Y or N )\n";
-		savedata.askToSave(userID, name, userInput, msgEncrypted, broadcastMsg);
+		savedata.askToSave(userID, name, userInput, msgEncrypted, broadcastMsg);	// invoke function for save functionality
 
-		quitApp();
+		quitApp();	// invoke function to continue/end game loop
 
-	} while (crypt.restart);
+	} while (crypt.restart);	// game loop determined by boolean value of function property
 
 	return 0;
 }	// end of main
@@ -104,17 +99,17 @@ bool quitApp()
 	char ch = 0;
 	ch = _getch(); // assigning user input to variable 'ch'
 	// if user does not press ESC key, program continues
-	if ((ch = _getch()) != 27)
+	if ((ch = _getch()) != 27)	// '27' is the 'ESC' key 
 	{
-		crypt.restart = true;
+		crypt.restart = true;	// any user input that is NOT 'ESC' sets switch to a replay position
 		system("CLS");
 
-		return crypt.restart;
+		return crypt.restart;	// return boolean value 
 	}
 	else
 	{
-		system("CLS");
+		cout << "\n  Program terminated...";
+		exit(0);	// exit the program
 		
-		return crypt.restart;
 	}
 }
